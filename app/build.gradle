@@ -1,20 +1,50 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
     defaultConfig {
         applicationId "com.gw.newstart"
-        minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
+    signingConfigs {
+        debug {
+            storeFile file('keystore/release_keystore.jks')
+            storePassword '123456'
+            keyAlias 'alias'
+            keyPassword '123456'
+        }
         release {
+            storeFile file('keystore/release_keystore.jks')
+            storePassword '123456'
+            keyAlias 'alias'
+            keyPassword '123456'
+        }
+    }
+    buildTypes {
+        debug {
+            versionNameSuffix "-debug"
             minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+        }
+        release {
+            //是否开启混淆
+            minifyEnabled true
+            //混淆所用的文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //是否zip优化
+            zipAlignEnabled true
+            //删除一些无用资源
+            shrinkResources true
+            //签名所用的配置文件
+            signingConfig signingConfigs.release
         }
     }
 }
@@ -28,3 +58,6 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     testCompile 'junit:junit:4.12'
 }
+
+//gradle配置
+//http://stormzhang.com/android/2016/07/15/android-gradle-config/
