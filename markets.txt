@@ -1,0 +1,3 @@
+xiaomi#小米渠道
+huawei#华为渠道
+qq#应用宝渠道
