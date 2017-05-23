@@ -1,6 +1,7 @@
 package com.gw.newstart;
 
 import android.app.Application;
+import android.widget.Toast;
 
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
@@ -14,5 +15,6 @@ public class MainReleaseApplication extends MainApplication {
     public void onCreate() {
         super.onCreate();
         Logger.init().logLevel(LogLevel.NONE);
+        Toast.makeText(this, "Release", Toast.LENGTH_SHORT).show();
     }
 }

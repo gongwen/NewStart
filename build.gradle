@@ -3,6 +3,8 @@
 buildscript {
     ext.packer_version = '1.0.9'
     ext.butterknife_version = '8.6.0'
+    ext.retrofit2_version = '2.3.0'
+    ext.rxlifecycle_version = '2.0.1'
 
     repositories {
         mavenCentral()

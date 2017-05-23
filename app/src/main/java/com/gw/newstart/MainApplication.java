@@ -1,20 +1,24 @@
 package com.gw.newstart;
 
 import android.app.Application;
-import android.widget.Toast;
 
-import com.mcxiaoke.packer.helper.PackerNg;
-import com.orhanobut.logger.Logger;
+import com.gw.newstart.utils.ApplicationConfigs;
 
 /**
  * Created by GongWen on 17/5/22.
  */
 
 public class MainApplication extends Application {
+    private static MainApplication instance;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        final String market = PackerNg.getMarket(this, "默认打包渠道");
-        Logger.d(market);
+        instance = this;
+        ApplicationConfigs.init();
+    }
+
+    public static MainApplication getInstance() {
+        return instance;
     }
 }

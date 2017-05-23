@@ -60,6 +60,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
     })
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
@@ -67,8 +68,21 @@ dependencies {
 
     compile 'com.orhanobut:logger:1.15'
     compile "com.mcxiaoke.gradle:packer-helper:$packer_version"
+
     compile "com.jakewharton:butterknife:$butterknife_version"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_version"
+
+    compile "io.reactivex.rxjava2:rxjava:2.1.0"
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile "com.squareup.retrofit2:retrofit:$retrofit2_version"
+    compile "com.squareup.retrofit2:converter-gson:$retrofit2_version"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_version"
+    compile "com.trello.rxlifecycle2:rxlifecycle:$rxlifecycle_version"
+    // If you want to bind to Android-specific lifecycles
+    compile "com.trello.rxlifecycle2:rxlifecycle-android:$rxlifecycle_version"
+    // If you want pre-written Activities and Fragments you can subclass as providers
+    compile "com.trello.rxlifecycle2:rxlifecycle-components:$rxlifecycle_version"
+
 }
 
 //gradle配置
