@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'packer'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion Integer.parseInt(project.COMPILE_SDK_VERSION)
@@ -33,7 +34,6 @@ android {
         }
     }
     buildTypes {
-
         debug {
             versionNameSuffix "-debug"
             minifyEnabled false
@@ -67,6 +67,8 @@ dependencies {
 
     compile 'com.orhanobut:logger:1.15'
     compile "com.mcxiaoke.gradle:packer-helper:$packer_version"
+    compile "com.jakewharton:butterknife:$butterknife_version"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_version"
 }
 
 //gradle配置
