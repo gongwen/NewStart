@@ -3,7 +3,6 @@ package com.gw.newstart.utils;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.gw.newstart.MainApplication;
 import com.mcxiaoke.packer.helper.PackerNg;
@@ -16,19 +15,16 @@ import com.orhanobut.logger.Logger;
 
 public class ApplicationConfigs {
     private static MainApplication sInstance = MainApplication.getInstance();
-    private static boolean DEBUGGABLE = true;
+    public static boolean DEBUGGABLE = true;
 
     public static void init() {
         registerActivityLifecycleCallbacks();
         final String market = PackerNg.getMarket(sInstance, "默认打包渠道");
         if (DEBUGGABLE) {
             Logger.init("debug").methodCount(3).hideThreadInfo().logLevel(LogLevel.FULL);
-            Toast.makeText(sInstance, "debug", Toast.LENGTH_SHORT).show();
         } else {
             Logger.init().logLevel(LogLevel.NONE);
-            Toast.makeText(sInstance, "Release", Toast.LENGTH_SHORT).show();
         }
-        Logger.d(market);
     }
 
     private static void registerActivityLifecycleCallbacks() {
