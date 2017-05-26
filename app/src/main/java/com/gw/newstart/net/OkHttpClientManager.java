@@ -1,8 +1,6 @@
 package com.gw.newstart.net;
 
 import com.gw.newstart.net.interceptor.CacheInterceptor;
-import com.gw.newstart.net.interceptor.GlobalParametersInterceptor;
-import com.gw.newstart.net.interceptor.HeaderInterceptor;
 import com.gw.newstart.utils.ApplicationConfigs;
 import com.gw.newstart.utils.FileUtils;
 
@@ -46,8 +44,8 @@ public class OkHttpClientManager {
             }
             builder
                     .cache(cache).addInterceptor(new CacheInterceptor())
-                    .addInterceptor(new GlobalParametersInterceptor())
-                    .addInterceptor(new HeaderInterceptor())
+                    //.addInterceptor(new GlobalParametersInterceptor())
+                    //.addInterceptor(new HeaderInterceptor())
                     .connectTimeout(connectTimeout, TimeUnit.SECONDS)
                     .readTimeout(readTimeout, TimeUnit.SECONDS)
                     .writeTimeout(writeTimeout, TimeUnit.SECONDS)

@@ -8,13 +8,14 @@ buildscript {
     ext.rxlifecycle_version = '2.0.1'
 
     repositories {
-        mavenCentral()
         jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.2'
         classpath "com.mcxiaoke.gradle:packer-ng:$packer_version"
         classpath "com.jakewharton:butterknife-gradle-plugin:$butterknife_version"
+        classpath 'me.tatarka:gradle-retrolambda:3.6.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -24,6 +25,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenCentral()
     }
 }
 

@@ -1,4 +1,4 @@
-package com.gw.newstart.rxcompat;
+package com.gw.newstart.rxhelper;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;

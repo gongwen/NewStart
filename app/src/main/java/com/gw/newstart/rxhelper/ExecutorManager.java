@@ -1,4 +1,4 @@
-package com.gw.newstart.rxcompat;
+package com.gw.newstart.rxhelper;
 
 import android.os.Build;
 import android.support.annotation.NonNull;

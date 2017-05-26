@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'packer'
 apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion Integer.parseInt(project.COMPILE_SDK_VERSION)
@@ -56,6 +57,10 @@ android {
             signingConfig signingConfigs.release
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -83,11 +88,11 @@ dependencies {
 
     compile "io.reactivex.rxjava2:rxjava:2.1.0"
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    //compile "com.trello.rxlifecycle2:rxlifecycle:$rxlifecycle_version"
+    compile "com.trello.rxlifecycle2:rxlifecycle:$rxlifecycle_version"
     // If you want to bind to Android-specific lifecycles
     //compile "com.trello.rxlifecycle2:rxlifecycle-android:$rxlifecycle_version"
     // If you want pre-written Activities and Fragments you can subclass as providers
-    //compile "com.trello.rxlifecycle2:rxlifecycle-components:$rxlifecycle_version"
+    compile "com.trello.rxlifecycle2:rxlifecycle-components:$rxlifecycle_version"
 
 
 }

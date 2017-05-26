@@ -5,5 +5,5 @@ package com.gw.newstart.utils;
  */
 
 public class Constant {
-    public final static String HOST = "http://gank.io/";
+    public final static String HOST = "http://192.168.1.57:5000/";
 }
