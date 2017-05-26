@@ -1,6 +1,7 @@
 package com.gw.newstart.net;
 
 import com.gw.newstart.net.interceptor.CacheInterceptor;
+import com.gw.newstart.net.interceptor.HttpLoggingInterceptor;
 import com.gw.newstart.utils.ApplicationConfigs;
 import com.gw.newstart.utils.FileUtils;
 
@@ -9,7 +10,6 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * Created by GongWen on 17/5/25.
@@ -39,7 +39,7 @@ public class OkHttpClientManager {
             if (ApplicationConfigs.DEBUGGABLE) {
                 //log信息拦截器
                 HttpLoggingInterceptor mHttpLoggingInterceptor = new HttpLoggingInterceptor();
-                mHttpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+                mHttpLoggingInterceptor.setLevel(ApplicationConfigs.DEBUGGABLE ? HttpLoggingInterceptor.Level.ME : HttpLoggingInterceptor.Level.NONE);
                 builder.addInterceptor(mHttpLoggingInterceptor);
             }
             builder

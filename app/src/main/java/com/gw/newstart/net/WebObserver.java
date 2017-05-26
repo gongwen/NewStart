@@ -4,8 +4,10 @@ import android.app.Activity;
 
 import com.gw.newstart.model.ResponseEntity;
 import com.gw.newstart.utils.ToastUtil;
+import com.orhanobut.logger.Logger;
 
 import java.lang.ref.WeakReference;
+import java.net.UnknownHostException;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -24,12 +26,9 @@ public abstract class WebObserver<T> implements Observer<ResponseEntity<T>> {
 
     @Override
     public void onSubscribe(@NonNull Disposable d) {
-        if (mRefActivity.get() == null) {
-            Activity mActivity = mRefActivity.get();
-            if (mActivity.isDestroyed() || mActivity.isFinishing()) {
-                if (d.isDisposed()) {
-                    d.dispose();
-                }
+        if (mRefActivity.get() == null || mRefActivity.get().isFinishing() || mRefActivity.get().isDestroyed()) {
+            if (!d.isDisposed()) {
+                d.dispose();
             }
         }
     }
@@ -60,5 +59,8 @@ public abstract class WebObserver<T> implements Observer<ResponseEntity<T>> {
     }
 
     public void onFailure(Exception e) {
+        if (e instanceof UnknownHostException) {
+            Logger.i("onFailure--->UnknownHostException");
+        }
     }
 }

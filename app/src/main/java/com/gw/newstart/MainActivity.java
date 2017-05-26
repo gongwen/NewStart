@@ -3,6 +3,7 @@ package com.gw.newstart;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.badoo.mobile.util.WeakHandler;
 import com.gw.newstart.model.ResponseEntity;
 import com.gw.newstart.model.UserEntity;
 import com.gw.newstart.net.ApiGetService;
@@ -38,14 +39,26 @@ public class MainActivity extends RxAppCompatActivity {
                         Logger.i("get--->" + resultEntity.toString());
                     }
                 });
-        apiPostService.getGankList("用户名", "密码")
-                .compose(this.<ResponseEntity<UserEntity>>bindToLifecycle())
-                .compose(SchedulersCompat.<ResponseEntity<UserEntity>>applyIoSchedulers())
-                .subscribe(new WebObserver<UserEntity>(this) {
-                    @Override
-                    public void onSuccess(UserEntity resultEntity) {
-                        Logger.i("post--->" + resultEntity.toString());
-                    }
-                });
+        WeakHandler mHandler = new WeakHandler();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 1000);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                apiPostService.getGankList("用户名", "密码")
+                        .compose(MainActivity.this.bindToLifecycle())
+                        .compose(SchedulersCompat.applyIoSchedulers())
+                        .subscribe(new WebObserver<UserEntity>(MainActivity.this) {
+                            @Override
+                            public void onSuccess(UserEntity resultEntity) {
+                                Logger.i("post--->" + resultEntity.toString());
+                            }
+                        });
+            }
+        }, 1000);
     }
 }
