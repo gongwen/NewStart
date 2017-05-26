@@ -39,7 +39,7 @@ public class OkHttpClientManager {
             if (ApplicationConfigs.DEBUGGABLE) {
                 //log信息拦截器
                 HttpLoggingInterceptor mHttpLoggingInterceptor = new HttpLoggingInterceptor();
-                mHttpLoggingInterceptor.setLevel(ApplicationConfigs.DEBUGGABLE ? HttpLoggingInterceptor.Level.ME : HttpLoggingInterceptor.Level.NONE);
+                mHttpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.ME);
                 builder.addInterceptor(mHttpLoggingInterceptor);
             }
             builder
