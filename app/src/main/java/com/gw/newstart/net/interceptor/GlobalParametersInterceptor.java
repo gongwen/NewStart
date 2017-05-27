@@ -3,7 +3,6 @@ package com.gw.newstart.net.interceptor;
 import com.gw.newstart.utils.InterceptorUtil;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
@@ -19,7 +18,6 @@ import okhttp3.Response;
  */
 
 public class GlobalParametersInterceptor implements Interceptor {
-    private static final Charset UTF8 = Charset.forName("UTF-8");
 
     @Override
     public Response intercept(Chain chain) throws IOException {
