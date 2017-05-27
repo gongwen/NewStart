@@ -1,6 +1,7 @@
 package com.gw.newstart.net.interceptor;
 
-import java.io.EOFException;
+import com.gw.newstart.utils.InterceptorUtil;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
@@ -184,7 +185,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
                 }
 
                 logger.log("");
-                if (isPlaintext(buffer)) {
+                if (InterceptorUtil.isPlaintext(buffer)) {
                     logger.log(buffer.readString(charset));
                     logger.log("--> END " + request.method()
                             + " (" + requestBody.contentLength() + "-byte body)");
@@ -234,7 +235,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
                     charset = contentType.charset(UTF8);
                 }
 
-                if (!isPlaintext(buffer)) {
+                if (!InterceptorUtil.isPlaintext(buffer)) {
                     logger.log("");
                     logger.log("<-- END HTTP (binary " + buffer.size() + "-byte body omitted)");
                     return response;
@@ -261,7 +262,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
                     charset = contentType.charset(UTF8);
                 }
 
-                if (isPlaintext(buffer)) {
+                if (InterceptorUtil.isPlaintext(buffer)) {
                     url = url + "?" + buffer.readString(charset);
                 }
             }
@@ -282,7 +283,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
                 charset = contentType.charset(UTF8);
             }
 
-            if (!isPlaintext(buffer)) {
+            if (!InterceptorUtil.isPlaintext(buffer)) {
                 meLogInfo.append("<-- END HTTP (binary " + buffer.size() + "-byte body omitted)");
                 com.orhanobut.logger.Logger.i(meLogInfo.toString());
                 return response;
@@ -297,29 +298,6 @@ public final class HttpLoggingInterceptor implements Interceptor {
         return response;
     }
 
-    /**
-     * Returns true if the body in question probably contains human readable text. Uses a small sample
-     * of code points to detect unicode control characters commonly used in binary file signatures.
-     */
-    static boolean isPlaintext(Buffer buffer) {
-        try {
-            Buffer prefix = new Buffer();
-            long byteCount = buffer.size() < 64 ? buffer.size() : 64;
-            buffer.copyTo(prefix, 0, byteCount);
-            for (int i = 0; i < 16; i++) {
-                if (prefix.exhausted()) {
-                    break;
-                }
-                int codePoint = prefix.readUtf8CodePoint();
-                if (Character.isISOControl(codePoint) && !Character.isWhitespace(codePoint)) {
-                    return false;
-                }
-            }
-            return true;
-        } catch (EOFException e) {
-            return false; // Truncated UTF-8 sequence.
-        }
-    }
 
     private boolean bodyEncoded(Headers headers) {
         String contentEncoding = headers.get("Content-Encoding");

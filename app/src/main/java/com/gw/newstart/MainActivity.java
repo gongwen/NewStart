@@ -40,12 +40,12 @@ public class MainActivity extends RxAppCompatActivity {
                     }
                 });
         WeakHandler mHandler = new WeakHandler();
-        mHandler.postDelayed(new Runnable() {
+       /* mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 finish();
             }
-        }, 1000);
+        }, 1000);*/
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {

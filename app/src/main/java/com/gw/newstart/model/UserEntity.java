@@ -11,6 +11,8 @@ public class UserEntity {
     private String username;
     @SerializedName("password")
     private String password;
+    @SerializedName("os")
+    private String os;
 
     public UserEntity(String username, String password) {
         this.username = username;
@@ -33,11 +35,20 @@ public class UserEntity {
         this.password = password;
     }
 
+    public String getOs() {
+        return os;
+    }
+
+    public void setOs(String os) {
+        this.os = os;
+    }
+
     @Override
     public String toString() {
         return "UserEntity{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", os='" + os + '\'' +
                 '}';
     }
 }

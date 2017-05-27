@@ -7,6 +7,7 @@ import com.gw.newstart.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 
 import java.lang.ref.WeakReference;
+import java.net.ConnectException;
 import java.net.UnknownHostException;
 
 import io.reactivex.Observer;
@@ -59,8 +60,10 @@ public abstract class WebObserver<T> implements Observer<ResponseEntity<T>> {
     }
 
     public void onFailure(Exception e) {
-        if (e instanceof UnknownHostException) {
-            Logger.i("onFailure--->UnknownHostException");
+        Logger.i("onFailure:Exception--->" + e.getMessage());
+
+        if (e instanceof ConnectException) {
+        } else if (e instanceof UnknownHostException) {
         }
     }
 }

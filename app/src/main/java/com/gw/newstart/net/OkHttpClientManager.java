@@ -1,8 +1,8 @@
 package com.gw.newstart.net;
 
-import com.gw.newstart.net.interceptor.CacheInterceptor;
+import com.gw.newstart.net.interceptor.GlobalParametersInterceptor;
 import com.gw.newstart.net.interceptor.HttpLoggingInterceptor;
-import com.gw.newstart.utils.ApplicationConfigs;
+import com.gw.newstart.utils.Constant;
 import com.gw.newstart.utils.FileUtils;
 
 import java.io.File;
@@ -36,20 +36,20 @@ public class OkHttpClientManager {
     public OkHttpClient getOkHttpClient() {
         if (mOkHttpClient == null) {
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
-            if (ApplicationConfigs.DEBUGGABLE) {
+            builder
+                    //.addInterceptor(new HeaderInterceptor())
+                    .addInterceptor(new GlobalParametersInterceptor())
+                    .connectTimeout(connectTimeout, TimeUnit.SECONDS)
+                    .readTimeout(readTimeout, TimeUnit.SECONDS)
+                    .writeTimeout(writeTimeout, TimeUnit.SECONDS)
+                    //.cache(cache).addInterceptor(new CacheInterceptor())
+                    .retryOnConnectionFailure(true);
+            if (Constant.DEBUGGABLE) {
                 //log信息拦截器
                 HttpLoggingInterceptor mHttpLoggingInterceptor = new HttpLoggingInterceptor();
                 mHttpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.ME);
                 builder.addInterceptor(mHttpLoggingInterceptor);
             }
-            builder
-                    .cache(cache).addInterceptor(new CacheInterceptor())
-                    //.addInterceptor(new GlobalParametersInterceptor())
-                    //.addInterceptor(new HeaderInterceptor())
-                    .connectTimeout(connectTimeout, TimeUnit.SECONDS)
-                    .readTimeout(readTimeout, TimeUnit.SECONDS)
-                    .writeTimeout(writeTimeout, TimeUnit.SECONDS)
-                    .retryOnConnectionFailure(true);
             mOkHttpClient = builder.build();
         }
         return mOkHttpClient;

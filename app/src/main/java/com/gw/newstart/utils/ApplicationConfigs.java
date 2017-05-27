@@ -15,12 +15,11 @@ import com.orhanobut.logger.Logger;
 
 public class ApplicationConfigs {
     private static MainApplication sInstance = MainApplication.getInstance();
-    public static boolean DEBUGGABLE = true;
 
     public static void init() {
         registerActivityLifecycleCallbacks();
         final String market = PackerNg.getMarket(sInstance, "默认打包渠道");
-        if (DEBUGGABLE) {
+        if (Constant.DEBUGGABLE) {
             Logger.init("debug").methodCount(3).hideThreadInfo().logLevel(LogLevel.FULL);
         } else {
             Logger.init().logLevel(LogLevel.NONE);
