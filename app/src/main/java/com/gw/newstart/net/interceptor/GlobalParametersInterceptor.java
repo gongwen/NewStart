@@ -15,6 +15,7 @@ import okhttp3.Response;
 
 /**
  * Created by GongWen on 17/5/25.
+ * https://stackoverflow.com/questions/34791244/retrofit2-modifying-request-body-in-okhttp-interceptor
  */
 
 public class GlobalParametersInterceptor implements Interceptor {
