@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NewStart</string>
+    <string name="net_error_tip">网络连接异常</string>
 </resources>

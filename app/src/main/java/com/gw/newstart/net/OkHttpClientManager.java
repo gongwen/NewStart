@@ -35,20 +35,21 @@ public class OkHttpClientManager {
 
     public OkHttpClient getOkHttpClient() {
         if (mOkHttpClient == null) {
+            //https://github.com/square/okhttp/wiki/Interceptors
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             builder
                     //.addInterceptor(new HeaderInterceptor())
-                    .addInterceptor(new GlobalParametersInterceptor())
                     .connectTimeout(connectTimeout, TimeUnit.SECONDS)
                     .readTimeout(readTimeout, TimeUnit.SECONDS)
                     .writeTimeout(writeTimeout, TimeUnit.SECONDS)
+                    .addInterceptor(new GlobalParametersInterceptor())
                     //.cache(cache).addInterceptor(new CacheInterceptor())
                     .retryOnConnectionFailure(true);
             if (Constant.DEBUGGABLE) {
                 //log信息拦截器
                 HttpLoggingInterceptor mHttpLoggingInterceptor = new HttpLoggingInterceptor();
                 mHttpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.ME);
-                builder.addInterceptor(mHttpLoggingInterceptor);
+                builder.addNetworkInterceptor(mHttpLoggingInterceptor);
             }
             mOkHttpClient = builder.build();
         }

@@ -3,11 +3,13 @@ package com.gw.newstart.net;
 import android.app.Activity;
 
 import com.gw.newstart.model.ResponseEntity;
+import com.gw.newstart.utils.StringUtils;
 import com.gw.newstart.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 
 import java.lang.ref.WeakReference;
-import java.net.ConnectException;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 import io.reactivex.Observer;
@@ -45,7 +47,7 @@ public abstract class WebObserver<T> implements Observer<ResponseEntity<T>> {
 
     @Override
     public void onError(@NonNull Throwable e) {
-        onFailure(new Exception(e));
+        onFailure(e);
     }
 
     @Override
@@ -59,11 +61,14 @@ public abstract class WebObserver<T> implements Observer<ResponseEntity<T>> {
         ToastUtil.showToastShort(code + "---" + msg);
     }
 
-    public void onFailure(Exception e) {
-        Logger.i("onFailure:Exception--->" + e.getMessage());
+    public void onFailure(Throwable e) {
+        Logger.i("onFailure:Throwable--->" + e.getCause());
 
-        if (e instanceof ConnectException) {
+        if (e instanceof SocketException) {//ConnectException is a subClass of SocketException
+            ToastUtil.showToastShort(StringUtils.getNetErrorTip());
         } else if (e instanceof UnknownHostException) {
+        } else if (e instanceof SocketTimeoutException) {
         }
+
     }
 }

@@ -6,5 +6,5 @@ package com.gw.newstart.utils;
 
 public class Constant {
     public static boolean DEBUGGABLE = true;
-    public final static String HOST = "http://10.10.10.164:5000/";
+    public final static String HOST = "http://192.168.1.57:5000/";
 }
