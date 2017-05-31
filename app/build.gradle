@@ -3,6 +3,10 @@ apply plugin: 'packer'
 apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'me.tatarka.retrolambda'
 
+def releaseTime() {
+    return new Date().format("yyyy.MM.dd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
     compileSdkVersion Integer.parseInt(project.COMPILE_SDK_VERSION)
     buildToolsVersion project.BUILD_TOOLS_VERSION
@@ -43,6 +47,16 @@ android {
             zipAlignEnabled false
             shrinkResources false
             signingConfig signingConfigs.debug
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为appname-1.0-beta1-xxxx-xx-xx.apk
+                        def fileName = "app-debug-${defaultConfig.versionName}-${releaseTime()}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
         release {
             //是否开启混淆
@@ -73,7 +87,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     testCompile 'junit:junit:4.12'
 
-    compile 'com.orhanobut:logger:1.15'
+    compile 'com.orhanobut:logger:2.1.0'
     compile "com.mcxiaoke.gradle:packer-helper:$packer_version"
 
     compile "com.jakewharton:butterknife:$butterknife_version"
