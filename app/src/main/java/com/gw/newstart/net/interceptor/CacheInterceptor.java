@@ -11,6 +11,7 @@ import okhttp3.Response;
 
 /**
  * Created by GongWen on 17/5/25.
+ * https://square.github.io/okhttp/3.x/okhttp/okhttp3/Cache.html
  */
 
 public class CacheInterceptor implements Interceptor {
@@ -22,9 +23,14 @@ public class CacheInterceptor implements Interceptor {
                     .newBuilder()
                     .cacheControl(CacheControl.FORCE_CACHE)
                     .build();
+        } else {
+            request = request
+                    .newBuilder()
+                    .cacheControl(CacheControl.FORCE_NETWORK)
+                    .build();
         }
         Response response = chain.proceed(request);
-        if (AppUtils.isNetworkAvailable()) {
+        /*if (AppUtils.isNetworkAvailable()) {
             int maxAge = 0;
             // 有网络时 设置缓存超时时间0个小时
             response.newBuilder()
@@ -38,7 +44,7 @@ public class CacheInterceptor implements Interceptor {
                     .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
                     .removeHeader("Pragma")
                     .build();
-        }
+        }*/
         return response;
     }
 }

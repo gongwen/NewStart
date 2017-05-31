@@ -62,7 +62,9 @@ public abstract class WebObserver<T> implements Observer<ResponseEntity<T>> {
     }
 
     public void onFailure(Throwable e) {
-        Logger.i("onFailure:Throwable--->" + e.getCause());
+        Throwable causeThrowable = e.getCause();
+        String errorMsg = causeThrowable != null ? causeThrowable.toString() : e.getMessage();
+        Logger.i("onFailure:Throwable--->" + errorMsg);
 
         if (e instanceof SocketException) {//ConnectException is a subClass of SocketException
             ToastUtil.showToastShort(StringUtils.getNetErrorTip());

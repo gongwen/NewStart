@@ -1,5 +1,6 @@
 package com.gw.newstart.net;
 
+import com.gw.newstart.net.interceptor.CacheInterceptor;
 import com.gw.newstart.net.interceptor.GlobalParametersInterceptor;
 import com.gw.newstart.net.interceptor.HttpLoggingInterceptor;
 import com.gw.newstart.utils.Constant;
@@ -43,7 +44,7 @@ public class OkHttpClientManager {
                     .readTimeout(readTimeout, TimeUnit.SECONDS)
                     .writeTimeout(writeTimeout, TimeUnit.SECONDS)
                     .addInterceptor(new GlobalParametersInterceptor())
-                    //.cache(cache).addInterceptor(new CacheInterceptor())
+                    .cache(cache).addInterceptor(new CacheInterceptor())
                     .retryOnConnectionFailure(true);
             if (Constant.DEBUGGABLE) {
                 //log信息拦截器
